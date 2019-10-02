@@ -122,7 +122,8 @@ public class InAppBrowser extends CordovaPlugin {
 
     private InAppBrowserDialog dialog;
     private WebView inAppWebView;
-    private TextView edittext;
+    private EditText edittext;
+    private TextView authtext;
     private CallbackContext callbackContext;
     private boolean showLocationBar = true;
     private boolean showZoomControls = true;
@@ -595,15 +596,15 @@ public class InAppBrowser extends CordovaPlugin {
      * @param url to load
      */
     private void navigate(String url) {
-        // InputMethodManager imm = (InputMethodManager)this.cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        // imm.hideSoftInputFromWindow(edittext.getWindowToken(), 0);
+        InputMethodManager imm = (InputMethodManager)this.cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(edittext.getWindowToken(), 0);
 
-        // if (!url.startsWith("http") && !url.startsWith("file:")) {
-        //     this.inAppWebView.loadUrl("http://" + url);
-        // } else {
-        //     this.inAppWebView.loadUrl(url);
-        // }
-        // this.inAppWebView.requestFocus();
+        if (!url.startsWith("http") && !url.startsWith("file:")) {
+            this.inAppWebView.loadUrl("http://" + url);
+        } else {
+            this.inAppWebView.loadUrl(url);
+        }
+        this.inAppWebView.requestFocus();
     }
 
 
@@ -875,51 +876,31 @@ public class InAppBrowser extends CordovaPlugin {
                 });
 
                 // Edit Text Box
-                // edittext = new EditText(cordova.getActivity());
-                // RelativeLayout.LayoutParams textLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-                // textLayoutParams.addRule(RelativeLayout.RIGHT_OF, 1);
-                // textLayoutParams.addRule(RelativeLayout.LEFT_OF, 5);
-                // edittext.setLayoutParams(textLayoutParams);
-                // edittext.setId(Integer.valueOf(4));
-                // edittext.setSingleLine(true);
-                // edittext.setText(url);
-                // edittext.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
-                // edittext.setImeOptions(EditorInfo.IME_ACTION_GO);
-                // edittext.setInputType(InputType.TYPE_NULL); // Will not except input... Makes the text NON-EDITABLE
-                // edittext.setOnKeyListener(new View.OnKeyListener() {
-                //     public boolean onKey(View v, int keyCode, KeyEvent event) {
-                //         // If the event is a key-down event on the "enter" button
-                //         if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                //             navigate(edittext.getText().toString());
-                //             return true;
-                //         }
-                //         return false;
-                //     }
-                // });
+                edittext = new EditText(cordova.getActivity());
+                RelativeLayout.LayoutParams textLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+                textLayoutParams.addRule(RelativeLayout.RIGHT_OF, 1);
+                textLayoutParams.addRule(RelativeLayout.LEFT_OF, 5);
+                edittext.setLayoutParams(textLayoutParams);
+                edittext.setId(Integer.valueOf(4));
+                edittext.setSingleLine(true);
+                edittext.setText(url);
+                edittext.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
+                edittext.setImeOptions(EditorInfo.IME_ACTION_GO);
+                edittext.setInputType(InputType.TYPE_NULL); // Will not except input... Makes the text NON-EDITABLE
+                edittext.setOnKeyListener(new View.OnKeyListener() {
+                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+                        // If the event is a key-down event on the "enter" button
+                        if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                            navigate(edittext.getText().toString());
+                            return true;
+                        }
+                        return false;
+                    }
+                });
 
-                edittext = new TextView(cordova.getActivity());
-                // RelativeLayout.LayoutParams textLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-                // textLayoutParams.addRule(RelativeLayout.RIGHT_OF, 1);
-                // textLayoutParams.addRule(RelativeLayout.LEFT_OF, 5);
-                // edittext.setLayoutParams(textLayoutParams);
-                // edittext.setId(Integer.valueOf(4));
-                // edittext.setSingleLine(true);
-                edittext.setText("Authenticate");
-                actionButtonContainer.addView(edittext);
-                // edittext.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
-                // edittext.setImeOptions(EditorInfo.IME_ACTION_GO);
-                // edittext.setInputType(InputType.TYPE_NULL); // Will not except input... Makes the text NON-EDITABLE
-                // edittext.setOnKeyListener(new View.OnKeyListener() {
-                //     public boolean onKey(View v, int keyCode, KeyEvent event) {
-                //         // If the event is a key-down event on the "enter" button
-                //         if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                //             navigate(edittext.getText().toString());
-                //             return true;
-                //         }
-                //         return false;
-                //     }
-                // });
-
+                // thingy
+                authtext = new TextView(cordova.getActivity());
+                authtext.setText("Authenticate");
 
                 // Header Close/Done button
                 int closeButtonId = leftToRight ? 1 : 5;
@@ -1066,6 +1047,7 @@ public class InAppBrowser extends CordovaPlugin {
                 // Add the views to our toolbar if they haven't been disabled
                 if (!hideNavigationButtons) toolbar.addView(actionButtonContainer);
                 if (!hideUrlBar) toolbar.addView(edittext);
+                toolbar.addView(authtext);
 
                 // Don't add the toolbar if its been disabled
                 if (getShowLocationBar()) {
@@ -1168,7 +1150,7 @@ public class InAppBrowser extends CordovaPlugin {
      * The webview client receives notifications about appView
      */
     public class InAppBrowserClient extends WebViewClient {
-        TextView edittext;
+        EditText edittext;
         CordovaWebView webView;
         String beforeload;
         boolean waitForBeforeload;
@@ -1179,7 +1161,7 @@ public class InAppBrowser extends CordovaPlugin {
          * @param webView
          * @param mEditText
          */
-        public InAppBrowserClient(CordovaWebView webView, TextView mEditText, String beforeload) {
+        public InAppBrowserClient(CordovaWebView webView, EditText mEditText, String beforeload) {
             this.webView = webView;
             this.edittext = mEditText;
             this.beforeload = beforeload;
