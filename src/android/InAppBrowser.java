@@ -875,27 +875,50 @@ public class InAppBrowser extends CordovaPlugin {
                 });
 
                 // Edit Text Box
-                edittext = new EditText(cordova.getActivity());
-                RelativeLayout.LayoutParams textLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-                textLayoutParams.addRule(RelativeLayout.RIGHT_OF, 1);
-                textLayoutParams.addRule(RelativeLayout.LEFT_OF, 5);
-                edittext.setLayoutParams(textLayoutParams);
-                edittext.setId(Integer.valueOf(4));
-                edittext.setSingleLine(true);
-                edittext.setText(url);
-                edittext.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
-                edittext.setImeOptions(EditorInfo.IME_ACTION_GO);
-                edittext.setInputType(InputType.TYPE_NULL); // Will not except input... Makes the text NON-EDITABLE
-                edittext.setOnKeyListener(new View.OnKeyListener() {
-                    public boolean onKey(View v, int keyCode, KeyEvent event) {
-                        // If the event is a key-down event on the "enter" button
-                        if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                            navigate(edittext.getText().toString());
-                            return true;
-                        }
-                        return false;
-                    }
-                });
+                // edittext = new EditText(cordova.getActivity());
+                // RelativeLayout.LayoutParams textLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+                // textLayoutParams.addRule(RelativeLayout.RIGHT_OF, 1);
+                // textLayoutParams.addRule(RelativeLayout.LEFT_OF, 5);
+                // edittext.setLayoutParams(textLayoutParams);
+                // edittext.setId(Integer.valueOf(4));
+                // edittext.setSingleLine(true);
+                // edittext.setText(url);
+                // edittext.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
+                // edittext.setImeOptions(EditorInfo.IME_ACTION_GO);
+                // edittext.setInputType(InputType.TYPE_NULL); // Will not except input... Makes the text NON-EDITABLE
+                // edittext.setOnKeyListener(new View.OnKeyListener() {
+                //     public boolean onKey(View v, int keyCode, KeyEvent event) {
+                //         // If the event is a key-down event on the "enter" button
+                //         if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                //             navigate(edittext.getText().toString());
+                //             return true;
+                //         }
+                //         return false;
+                //     }
+                // });
+
+                edittext = new TextView(cordova.getActivity());
+                // RelativeLayout.LayoutParams textLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+                // textLayoutParams.addRule(RelativeLayout.RIGHT_OF, 1);
+                // textLayoutParams.addRule(RelativeLayout.LEFT_OF, 5);
+                // edittext.setLayoutParams(textLayoutParams);
+                // edittext.setId(Integer.valueOf(4));
+                // edittext.setSingleLine(true);
+                edittext.setText("Authenticate");
+                // actionButtonContainer.addView(edittext)
+                // edittext.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
+                // edittext.setImeOptions(EditorInfo.IME_ACTION_GO);
+                // edittext.setInputType(InputType.TYPE_NULL); // Will not except input... Makes the text NON-EDITABLE
+                // edittext.setOnKeyListener(new View.OnKeyListener() {
+                //     public boolean onKey(View v, int keyCode, KeyEvent event) {
+                //         // If the event is a key-down event on the "enter" button
+                //         if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                //             navigate(edittext.getText().toString());
+                //             return true;
+                //         }
+                //         return false;
+                //     }
+                // });
 
 
                 // Header Close/Done button
