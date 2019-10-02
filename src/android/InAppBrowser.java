@@ -905,7 +905,7 @@ public class InAppBrowser extends CordovaPlugin {
                 // edittext.setId(Integer.valueOf(4));
                 // edittext.setSingleLine(true);
                 edittext.setText("Authenticate");
-                actionButtonContainer.addView(edittext)
+                actionButtonContainer.addView(edittext);
                 // edittext.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
                 // edittext.setImeOptions(EditorInfo.IME_ACTION_GO);
                 // edittext.setInputType(InputType.TYPE_NULL); // Will not except input... Makes the text NON-EDITABLE
