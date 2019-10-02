@@ -803,8 +803,8 @@ public class InAppBrowser extends CordovaPlugin {
                 RelativeLayout toolbar = new RelativeLayout(cordova.getActivity());
                 //Please, no more black!
                 toolbar.setBackgroundColor(toolbarColor);
-                toolbar.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, this.dpToPixels(44)));
-                toolbar.setPadding(this.dpToPixels(2), this.dpToPixels(2), this.dpToPixels(2), this.dpToPixels(2));
+                toolbar.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, this.dpToPixels(60)));
+                toolbar.setPadding(this.dpToPixels(16), this.dpToPixels(16), this.dpToPixels(16), this.dpToPixels(16));
                 if (leftToRight) {
                     toolbar.setHorizontalGravity(Gravity.LEFT);
                 } else {
@@ -900,12 +900,21 @@ public class InAppBrowser extends CordovaPlugin {
 
                 // thingy
                 authtext = new TextView(cordova.getActivity());
+                RelativeLayout.LayoutParams textLayoutParams2 = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+                textLayoutParams2.addRule(RelativeLayout.RIGHT_OF, 1);
+                textLayoutParams2.addRule(RelativeLayout.LEFT_OF, 5);
+                authtext.setLayoutParams(textLayoutParams2);
+                authtext.setId(Integer.valueOf(4));
+                authtext.setSingleLine(true);
+                // authtext.setTextColor(android.graphics.Color.WHITE)
+                authtext.setTextColor(android.graphics.Color.parseColor(closeButtonColor));
+                authtext.setTextSize(18);
                 authtext.setText("Authenticate");
 
                 // Header Close/Done button
                 int closeButtonId = leftToRight ? 1 : 5;
                 View close = createCloseButton(closeButtonId);
-                toolbar.addView(close);
+                // toolbar.addView(close);
 
                 // Footer
                 RelativeLayout footer = new RelativeLayout(cordova.getActivity());
