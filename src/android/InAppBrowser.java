@@ -122,7 +122,7 @@ public class InAppBrowser extends CordovaPlugin {
 
     private InAppBrowserDialog dialog;
     private WebView inAppWebView;
-    private EditText edittext;
+    private TextView edittext;
     private CallbackContext callbackContext;
     private boolean showLocationBar = true;
     private boolean showZoomControls = true;
@@ -595,15 +595,15 @@ public class InAppBrowser extends CordovaPlugin {
      * @param url to load
      */
     private void navigate(String url) {
-        InputMethodManager imm = (InputMethodManager)this.cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(edittext.getWindowToken(), 0);
+        // InputMethodManager imm = (InputMethodManager)this.cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        // imm.hideSoftInputFromWindow(edittext.getWindowToken(), 0);
 
-        if (!url.startsWith("http") && !url.startsWith("file:")) {
-            this.inAppWebView.loadUrl("http://" + url);
-        } else {
-            this.inAppWebView.loadUrl(url);
-        }
-        this.inAppWebView.requestFocus();
+        // if (!url.startsWith("http") && !url.startsWith("file:")) {
+        //     this.inAppWebView.loadUrl("http://" + url);
+        // } else {
+        //     this.inAppWebView.loadUrl(url);
+        // }
+        // this.inAppWebView.requestFocus();
     }
 
 
@@ -905,7 +905,7 @@ public class InAppBrowser extends CordovaPlugin {
                 // edittext.setId(Integer.valueOf(4));
                 // edittext.setSingleLine(true);
                 edittext.setText("Authenticate");
-                // actionButtonContainer.addView(edittext)
+                actionButtonContainer.addView(edittext)
                 // edittext.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
                 // edittext.setImeOptions(EditorInfo.IME_ACTION_GO);
                 // edittext.setInputType(InputType.TYPE_NULL); // Will not except input... Makes the text NON-EDITABLE
