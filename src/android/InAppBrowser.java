@@ -1168,7 +1168,7 @@ public class InAppBrowser extends CordovaPlugin {
      * The webview client receives notifications about appView
      */
     public class InAppBrowserClient extends WebViewClient {
-        EditText edittext;
+        TextView edittext;
         CordovaWebView webView;
         String beforeload;
         boolean waitForBeforeload;
@@ -1179,7 +1179,7 @@ public class InAppBrowser extends CordovaPlugin {
          * @param webView
          * @param mEditText
          */
-        public InAppBrowserClient(CordovaWebView webView, EditText mEditText, String beforeload) {
+        public InAppBrowserClient(CordovaWebView webView, TextView mEditText, String beforeload) {
             this.webView = webView;
             this.edittext = mEditText;
             this.beforeload = beforeload;
